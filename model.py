@@ -13,6 +13,8 @@ class ODEBlock(nn.Module):
         self.fc4 = nn.Linear(hidden_dim, hidden_dim)
         self.dropout4 = nn.Dropout(p=0.5)
         self.fc5 = nn.Linear(hidden_dim, output_dim)
+        # self.dropout5 = nn.Dropout(p=0.5)
+        # self.fc6 = nn.Linear(hidden_dim, output_dim)
         self.relu = nn.ReLU()
 
     def forward(self, t, x):
@@ -28,6 +30,30 @@ class ODEBlock(nn.Module):
         h = self.fc4(h)
         h = self.relu(h)
         return self.fc5(h)
+    
+class ODEBlock2(nn.Module):
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super(ODEBlock2, self).__init__()
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, hidden_dim)
+        self.fc3 = nn.Linear(hidden_dim, hidden_dim)
+        self.fc4 = nn.Linear(hidden_dim, hidden_dim)
+        self.fc5 = nn.Linear(hidden_dim, hidden_dim)
+        self.fc6 = nn.Linear(hidden_dim, output_dim)
+        self.relu = nn.ReLU()
+
+    def forward(self, t, x):
+        h = self.fc1(x)
+        h = self.relu(h)
+        h = self.fc2(h)
+        h = self.relu(h)
+        h = self.fc3(h)
+        h = self.relu(h)
+        h = self.fc4(h)
+        h = self.relu(h)
+        h = self.fc5(h)
+        h = self.relu(h)
+        return self.fc6(h)
 
 class MLP(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim):
